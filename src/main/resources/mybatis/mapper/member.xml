@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.MemberRepository">
+    <select id="findMember" parameterType="member" resultType="member">
+        SELECT mem_no
+            , mem_id
+            , passwd
+            , email
+            , cell_no
+            , create_dt
+            , update_dt
+        FROM mem
+        WHERE 1 = 1
+          <choose>
+              <when test="memNo != null and memNo != ''">
+                  AND mem_no = #{memNo}
+              </when>
+              <when test="memId != null and memId != ''">
+                  AND mem_id = #{memId}
+              </when>
+          </choose>
+    </select>
+
+    <select id="findAllMembers" resultType="member">
+        SELECT mem_no
+             , mem_id
+             , passwd
+             , email
+             , cell_no
+             , create_dt
+             , update_dt
+        FROM mem
+        ORDER BY mem_no DESC
+        LIMIT 3
+    </select>
+
+    <insert id="saveMember" parameterType="member">
+        INSERT INTO mem ( mem_id
+                        , passwd
+                        , email
+                        , cell_no
+                        , create_dt
+                        , update_dt)
+        VALUES (
+                #{memId}
+                ,#{passwd}
+                ,#{email}
+                ,#{cellNo}
+                ,CURRENT_TIMESTAMP
+                ,CURRENT_TIMESTAMP
+               )
+
+    </insert>
+
+</mapper>

@@ -1,0 +1,51 @@
+server:
+  port: 8080
+  tomcat:
+    max-swallow-size: -1
+    max-http-form-post-size: -1
+    connection-timeout: 5000
+    use-relative-redirects: true
+  max-http-request-header-size: 204800
+  error:
+    whitelabel:
+      enabled: false
+
+logging:
+  level:
+    root: DEBUG
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  application:
+    name: member
+  mvc:
+    throw-exception-if-no-handler-found: true
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  jmx:
+    enabled: false
+  datasource:
+    hikari:
+      username: user
+      jdbc-url: jdbc:h2:mem:member
+      driver-class-name: org.h2.Driver
+      maximum-pool-size: 5
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+      validation-timeout: 5000
+  h2:
+    console:
+      enabled: true
+  sql:
+    init:
+      schema-locations: classpath:h2/schema.sql
+      data-locations: classpath:h2/data.sql
+
+mybatis:
+  mapper-locations: classpath:mybatis/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.example.demo.repository.entity
