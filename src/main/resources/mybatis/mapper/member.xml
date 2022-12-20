@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.repository.MemberRepository">
-    <select id="findMember" parameterType="member" resultType="member">
+    <select id="findMembers" parameterType="member" resultType="member">
         SELECT mem_no
             , mem_id
             , passwd
@@ -21,20 +21,11 @@
               <when test="memId != null and memId != ''">
                   AND mem_id = #{memId}
               </when>
+              <otherwise>
+                  ORDER BY mem_no DESC
+                  LIMIT 3
+              </otherwise>
           </choose>
-    </select>
-
-    <select id="findAllMembers" resultType="member">
-        SELECT mem_no
-             , mem_id
-             , passwd
-             , email
-             , cell_no
-             , create_dt
-             , update_dt
-        FROM mem
-        ORDER BY mem_no DESC
-        LIMIT 3
     </select>
 
     <insert id="saveMember" parameterType="member">

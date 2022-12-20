@@ -37,7 +37,6 @@ public class MemberCreateValidator implements Validator {
         Optional<MemberV1> memberFromDB = memberService.findMemberByMemberId(memberId);
         if (memberFromDB.isPresent()) {
             errors.rejectValue("memberId", "", "동일한 ID가 존재 합니다. 다른 ID를 사용해 주십시오.");
-            return;
         }
 
         /**
@@ -47,7 +46,6 @@ public class MemberCreateValidator implements Validator {
          */
         if (StringUtils.isBlank(memberId) || !memberId.matches(CommonRegEx.REG_EX_ID)) {
             errors.rejectValue("memberId", "", "회원 ID 형식이 잘못되었습니다.\n최소 5자, 최대 20자, 영문소문자 및 숫자만 가능합니다.");
-            return;
         }
 
         /**
@@ -58,7 +56,6 @@ public class MemberCreateValidator implements Validator {
         String password = memberV1.getPassword();
         if (StringUtils.isBlank(password) || !password.matches(CommonRegEx.REG_EX_PASSWORD)) {
             errors.rejectValue("password", "", "비밀번호 형식이 잘못되었습니다.\n최소 8자, 최대 20자, 영문대소문자/숫자/특수문자 2가지 이상 조합이 필요합니다.");
-            return;
         }
 
         /**
@@ -67,7 +64,6 @@ public class MemberCreateValidator implements Validator {
         String email = memberV1.getEmail();
         if (StringUtils.isBlank(email) || !email.matches(CommonRegEx.REG_EX_EMAIL)) {
             errors.rejectValue("email", "", "이메일 형식이 잘못되었습니다.");
-            return;
         }
 
         /**
@@ -76,7 +72,6 @@ public class MemberCreateValidator implements Validator {
         String cellNo = memberV1.getCellNo();
         if (StringUtils.isBlank(cellNo) || !cellNo.matches(CommonRegEx.REG_EX_CELL_NO)) {
             errors.rejectValue("cellNo", "", "휴대폰 형식이 잘못되었습니다.");
-            return;
         }
     }
 }

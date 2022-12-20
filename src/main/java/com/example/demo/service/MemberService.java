@@ -36,22 +36,24 @@ public class MemberService {
     }
 
     public Optional<MemberV1> findMemberByMemberNo(long memberNo) {
-        Optional<Member> member = memberRepository.findMember(Member.builder()
-                .memNo(memberNo)
-                .build());
+        Optional<Member> member = memberRepository.findMembers(Member.builder()
+                        .memNo(memberNo)
+                        .build())
+                .stream().findFirst();
         return this.getMemberV1From(member);
     }
 
     public Optional<MemberV1> findMemberByMemberId(String memberId) {
-        Optional<Member> member = memberRepository.findMember(Member.builder()
-                .memId(memberId)
-                .build());
+        Optional<Member> member = memberRepository.findMembers(Member.builder()
+                        .memId(memberId)
+                        .build())
+                .stream().findFirst();
         return this.getMemberV1From(member);
     }
 
     public List<MemberV1> findAllMembers() {
-        return memberRepository.findAllMembers().stream()
-                .map(m -> this.getMemberV1From(Optional.of(m)).orElse(null))
+        return memberRepository.findMembers(new Member()).stream()
+                .map(m -> this.getMemberV1From(m))
                 .collect(Collectors.toList());
     }
 
@@ -67,17 +69,25 @@ public class MemberService {
     private Optional<MemberV1> getMemberV1From(Optional<Member> member) {
         return member.map(m -> {
             try {
-                return MemberV1.builder()
-                        .memberNo(m.getMemNo())
-                        .memberId(m.getMemId())
-                        .password(m.getPasswd())
-                        .email(encryptionUtil.decrypt(m.getEmail()))
-                        .cellNo(encryptionUtil.decrypt(m.getCellNo()))
-                        .build();
+                return getMemberV1From(m);
             } catch (Exception e) {
-                log.error("회원정보 조회 오류 {}", e.getMessage(), e);
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    private MemberV1 getMemberV1From(Member member) {
+        try {
+            return MemberV1.builder()
+                    .memberNo(member.getMemNo())
+                    .memberId(member.getMemId())
+                    .password(member.getPasswd())
+                    .email(encryptionUtil.decrypt(member.getEmail()))
+                    .cellNo(encryptionUtil.decrypt(member.getCellNo()))
+                    .build();
+        } catch (Exception e) {
+            log.error("회원정보 조회 오류 {}", e.getMessage(), e);
+            throw new RuntimeException(e);
+        }
     }
 }

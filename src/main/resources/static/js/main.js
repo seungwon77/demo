@@ -7,17 +7,19 @@ function registerForm() {
     location.href="/member/register";
 }
 
-function register(formName) {
-    let form = document.forms.namedItem(formName);
-    const data = new FormData(form);
-    const value = Object.fromEntries(data.entries());
+function register() {
+    let data = {};
+    data.memberId = $("#memberId").val();
+    data.password = $("#password").val();
+    data.email = $("#email").val();
+    data.cellNo = $("#cellNo").val();
     $.ajax({
         type: "POST" ,
         async: true ,
         url: "/api/v1/member",
         dataType : "json",
         timeout: 3000,
-        data: JSON.stringify(value),
+        data: JSON.stringify(data),
         contentType: "application/json",
         error: function (request, status, error) {
             console.log(error);

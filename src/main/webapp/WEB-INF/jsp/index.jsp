@@ -22,16 +22,23 @@
         </thead>
 
         <tbody>
-        <tr class="table__row">
-            <td class="table__account table__cell u-text-center"></td>
-            <td class="table__balance table__cell u-text-center"></td>
-            <td class="table__balance table__cell u-text-center"></td>
-            <td class="table__balance table__cell u-text-center"></td>
-        </tr>
+        <c:if test="${empty members}">
+            <tr class="table__row">
+                <td colspan="4" class="table__account table__cell u-text-center">조회된 회원이 없습니다.</td>
+            </tr>
+        </c:if>
+        <c:if test="${not empty members}">
+            <c:forEach var="member" items="${members}">
+                <tr class="table__row">
+                    <td class="table__account table__cell u-text-center">${member.memberNo}</td>
+                    <td class="table__balance table__cell u-text-center">${member.memberId}</td>
+                    <td class="table__balance table__cell u-text-center">${member.email}</td>
+                    <td class="table__balance table__cell u-text-center">${member.cellNo}</td>
+                </tr>
+            </c:forEach>
+        </c:if>
         </tbody>
-
         <tfoot>
-
         <tr class="table__row table__row--last">
             <td colspan="2" class="table__balance table__cell">최근 등록된 회원 3명까지 조회됩니다. <br>이전 등록 회원을 조회 하시려면 회원번호를 입력하세요.
             </td>
