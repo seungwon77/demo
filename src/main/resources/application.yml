@@ -25,6 +25,8 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+    pathmatch:
+      matching-strategy: ant_path_matcher
   jmx:
     enabled: false
   datasource:
@@ -49,3 +51,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   type-aliases-package: com.example.demo.repository.entity
+
+#encryption:
+#  encKey: "member-mushinsa0"
+#  encIV: "member-mushinsa0"

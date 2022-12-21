@@ -6,7 +6,6 @@ import com.example.demo.repository.entity.Member;
 import com.example.demo.util.EncryptionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class MemberService {
         try {
             Member member = Member.builder()
                     .memId(memberV1.getMemberId())
-                    .passwd(this.hashPassword(memberV1.getPassword()))
+                    .passwd(encryptionUtil.hashPassword(memberV1.getPassword()))
                     .email(encryptionUtil.encrypt(memberV1.getEmail()))
                     .cellNo(encryptionUtil.encrypt(memberV1.getCellNo()))
                     .build();
@@ -55,15 +54,6 @@ public class MemberService {
         return memberRepository.findMembers(new Member()).stream()
                 .map(m -> this.getMemberV1From(m))
                 .collect(Collectors.toList());
-    }
-
-    private String hashPassword(String password) {
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        return hashedPassword;
-    }
-
-    private boolean verifyPassword(String password, String hashedPassword) {
-        return BCrypt.checkpw(password, hashedPassword);
     }
 
     private Optional<MemberV1> getMemberV1From(Optional<Member> member) {

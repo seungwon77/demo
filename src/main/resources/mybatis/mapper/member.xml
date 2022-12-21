@@ -21,11 +21,8 @@
               <when test="memId != null and memId != ''">
                   AND mem_id = #{memId}
               </when>
-              <otherwise>
-                  ORDER BY mem_no DESC
-                  LIMIT 3
-              </otherwise>
           </choose>
+        ORDER BY mem_no DESC
     </select>
 
     <insert id="saveMember" parameterType="member">

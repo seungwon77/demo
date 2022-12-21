@@ -40,7 +40,7 @@
         </tbody>
         <tfoot>
         <tr class="table__row table__row--last">
-            <td colspan="2" class="table__balance table__cell">최근 등록된 회원 3명까지 조회됩니다. <br>이전 등록 회원을 조회 하시려면 회원번호를 입력하세요.
+            <td colspan="2" class="table__balance table__cell">회원을 조회 하시려면 회원번호를 입력하세요.
             </td>
             <td colspan="2" class="table__limit table__cell u-text-right u-font-mono">
                 <input type="text" name="memberNo" placeholder="회원번호" id="memberNo">&nbsp;

@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -19,9 +20,9 @@ import java.util.Base64;
 @Component
 public class EncryptionUtil {
 
-    @Value("${encKey}")
+    @Value("${encryption.encKey:member-mushinsa0}")
     private String encryptionKey;
-    @Value("${encIV}")
+    @Value("${encryption.encIV:member-mushinsa0}")
     private String encryptionIV;
 
     private static SecretKeySpec secretKeySpec;
@@ -43,6 +44,15 @@ public class EncryptionUtil {
         byte[] plainText = cipher.doFinal(Base64.getDecoder()
                 .decode(input));
         return new String(plainText);
+    }
+
+    public String hashPassword(String password) {
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        return hashedPassword;
+    }
+
+    public boolean verifyPassword(String password, String hashedPassword) {
+        return BCrypt.checkpw(password, hashedPassword);
     }
 
     @PostConstruct
