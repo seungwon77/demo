@@ -24,7 +24,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/member/home")
+    @GetMapping(value = {"/member/home", "/"})
     public String searchMember(Model model) {
         model.addAttribute("members", memberService.findAllMembers());
         return "index";

@@ -2,14 +2,15 @@
 
 ## Requirements
 
-- [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [JDK 1.8+](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 ## Running the application locally
 
 ```shell
-빌드
+Build
 ./gradlew bootWar
-실행
+
+Run
 ./gradlew bootRun -Dencryption.encKey=member-mushinsa0 -Dencryption.encIV=member-mushinsa0
 ```
 
