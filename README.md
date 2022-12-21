@@ -27,3 +27,6 @@ https://localhost:8080/member/register
 Swagger UI
 https://localhost:8080/swagger-ui.html
 ```
+
+### TC
+Service, Repository는 단위테스트 레벨로 작성하였고, ApiController 는 통합 테스트 레벨로 작성하였습니다.
