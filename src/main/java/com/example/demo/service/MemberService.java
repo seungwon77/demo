@@ -22,7 +22,7 @@ public class MemberService {
     public boolean createMember(MemberV1 memberV1) {
         try {
             Member member = Member.builder()
-                    .memId(memberV1.getMemberId())
+                    .memId(encryptionUtil.encrypt(memberV1.getMemberId()))
                     .passwd(encryptionUtil.hashPassword(memberV1.getPassword()))
                     .email(encryptionUtil.encrypt(memberV1.getEmail()))
                     .cellNo(encryptionUtil.encrypt(memberV1.getCellNo()))
@@ -70,7 +70,7 @@ public class MemberService {
         try {
             return MemberV1.builder()
                     .memberNo(member.getMemNo())
-                    .memberId(member.getMemId())
+                    .memberId(encryptionUtil.decrypt(member.getMemId()))
                     .password(member.getPasswd())
                     .email(encryptionUtil.decrypt(member.getEmail()))
                     .cellNo(encryptionUtil.decrypt(member.getCellNo()))
