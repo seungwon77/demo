@@ -18,14 +18,14 @@ Run
 ### Web Pages
 ```shell
 회원 조회
-https://localhost:8080/member/home
+http://localhost:8080/member/home
 회원 등록
-https://localhost:8080/member/register
+http://localhost:8080/member/register
 ```
 ### API
 ```shell
 Swagger UI
-https://localhost:8080/swagger-ui.html
+http://localhost:8080/swagger-ui.html
 ```
 
 ### TC
